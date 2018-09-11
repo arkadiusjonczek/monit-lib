@@ -1,0 +1,12 @@
+{
+    "name": "arkadiusjonczek/monit-lib",
+    "description": "Monit PHP Library.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Arkadius Jonczek",
+            "email": "arkadius@jonczek.de"
+        }
+    ],
+    "require": {}
+}
