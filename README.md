@@ -2,6 +2,12 @@
 
 This is a simple PHP library to retrieve the Status of a Monit instance.
 
+## Install
+
+```bash
+composer require arkadiusjonczek/monit-lib
+```
+
 ## Usage
 
 ```php
