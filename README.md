@@ -11,11 +11,12 @@ composer require arkadiusjonczek/monit-lib
 ## Usage
 
 ```php
-$url  = 'http://myserver1.com/_status?format=xml';
-$user = 'username';
-$pass = 'password';
+$client = new Guzzlehttp\Client();
+$url    = 'http://myserver1.com/_status?format=xml';
+$user   = 'username';
+$pass   = 'password';
 
-$monit  = new Monit\Monit($url, $user, $pass);
+$monit  = new Monit\Monit($client, $url, $user, $pass);
 $status = $monit->getStatusXml();
 
 print_r($status); 

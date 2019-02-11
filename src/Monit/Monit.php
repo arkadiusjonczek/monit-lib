@@ -2,6 +2,8 @@
 
 namespace Monit;
 
+use GuzzleHttp\ClientInterface;
+
 /**
  * Class Monit
  *
@@ -9,6 +11,13 @@ namespace Monit;
  */
 class Monit
 {
+    /**
+     * Guzzle Client
+     *
+     * @var ClientInterface
+     */
+    protected $client;
+
     /**
      * URL of monit status in XML format.
      *
@@ -37,8 +46,9 @@ class Monit
      * @param string $username
      * @param string $password
      */
-    public function __construct($url, $username, $password)
+    public function __construct(ClientInterface $client, $url, $username, $password)
     {
+        $this->client   = $client;
         $this->url      = $url;
         $this->username = $username;
         $this->password = $password;
@@ -51,16 +61,15 @@ class Monit
      */
     public function getStatusXml()
     {
-        $context = stream_context_create(
-            [
-                'http' => [
-                    'header' => 'Authorization: Basic ' . base64_encode("$this->username:$this->password")
-                ]
+        $options = [
+            'auth' => [
+                $this->username,
+                $this->password
             ]
-        );
+        ];
 
-        $xml = file_get_contents($this->url, false, $context);
+        $response = $this->client->request('GET', $this->url, $options);
 
-        return $xml;
+        return $response->getBody()->__toString();
     }
 }
